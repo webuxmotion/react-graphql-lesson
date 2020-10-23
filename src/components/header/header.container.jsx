@@ -8,11 +8,7 @@ import Header from './header.component';
 const HeaderContainer = () => (
   <Query query={GET_CART_HIDDEN}>
     {
-      ({ data: { cartHidden }}) => {
-        console.log(cartHidden);
-
-        return <Header hidden={cartHidden} />;
-      }
+      ({ data: { cartHidden }}) => <Header hidden={cartHidden} />
     }
   </Query>
 );
