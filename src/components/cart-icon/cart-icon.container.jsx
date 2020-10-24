@@ -1,16 +1,27 @@
 import React from 'react';
-import { Mutation } from 'react-apollo';
+import { Mutation, Query } from 'react-apollo';
 
 import CartIcon from './cart-icon.component';
 
-import { TOGGLE_CART_HIDDEN } from '../../graphql/constants';
+import { TOGGLE_CART_HIDDEN, GET_ITEM_COUNT } from '../../graphql/constants';
 
 const CartIconContainer = () => (
-  <Mutation mutation={TOGGLE_CART_HIDDEN}>
+  <Query query={GET_ITEM_COUNT}>
     {
-      toggleCartHidden => <CartIcon toggleCartHidden={toggleCartHidden} />
+      ({ data: { itemCount }}) => (
+        <Mutation mutation={TOGGLE_CART_HIDDEN}>
+          {
+            toggleCartHidden => (
+              <CartIcon 
+                toggleCartHidden={toggleCartHidden}
+                itemCount={itemCount}
+              />
+            )
+          }
+        </Mutation>
+      )
     }
-  </Mutation>
+  </Query>
 );
 
 export default CartIconContainer;
